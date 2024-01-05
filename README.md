@@ -133,3 +133,240 @@ The time complexity of an exhaustive search attack is O(25) since there are 25 p
 One method to counteract exhaustive search attacks is to use more complex cryptographic algorithms with larger key spaces, making it impractical to attempt all possible keys. In modern cryptography, strong symmetric encryption algorithms and hash functions typically have sufficiently large key spaces, rendering exhaustive search attacks very difficult.
 
 <figure><img src=".gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+
+
+Here is a Caesar cipher implemented in Python.
+
+```
+def caesar_encrypt(text, shift):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            # Determine whether the character is uppercase or lowercase
+            is_upper = char.isupper()
+            # Convert the character to its corresponding ASCII value
+            ascii_val = ord(char)
+            # Perform the shifting operation
+            shifted_ascii = (ascii_val - ord('A' if is_upper else 'a') + shift) % 26
+            # Convert the ASCII value back to a character
+            result += chr(shifted_ascii + ord('A' if is_upper else 'a'))
+        else:
+            # If the character is not a letter, add it directly to the result
+            result += char
+    return result
+
+def caesar_decrypt(text, shift):
+    # Decryption is essentially the inverse of encryption, so calling the encrypt function
+    return caesar_encrypt(text, -shift)
+
+# Example usage
+plaintext = "Hello, World!"
+shift_value = 3
+
+# Encrypt
+encrypted_text = caesar_encrypt(plaintext, shift_value)
+print(f"Encrypted: {encrypted_text}")
+
+# Decrypt
+decrypted_text = caesar_decrypt(encrypted_text, shift_value)
+print(f"Decrypted: {decrypted_text}")
+
+```
+
+This code implements encryption and decryption operations for the Caesar cipher.
+
+1. `caesar_encrypt` function:
+   * Parameters: `text` is the text to be encrypted, and `shift` is the offset used during encryption.
+   * Returns: Returns the encrypted text.
+   * Process:
+     * Utilizes a `for` loop to iterate through each character in the input text.
+     * Uses `char.isalpha()` to check if the character is a letter.
+     * If it's a letter, obtains the ASCII value of the character using `ord(char)` and calculates the relative position of the character with respect to 'A' or 'a'.
+     * Performs the shifting operation `(ascii_val - ord('A' if is_upper else 'a') + shift) % 26` to shift the letter. The `% 26` ensures cycling within the alphabet.
+     * Converts the result back to a character using `chr(shifted_ascii + ord('A' if is_upper else 'a'))`.
+     * If the character is not a letter, it is directly added to the result.
+     * Returns the final encrypted text.
+2. `caesar_decrypt` function:
+   * Parameters: `text` is the text to be decrypted, and `shift` is the offset used during decryption.
+   * Returns: Returns the decrypted text.
+   * Process:
+     * Decryption is essentially the inverse of encryption, so it directly calls the `caesar_encrypt` function with the negative value of the offset.
+     * Returns the final decrypted text.
+3. Example usage:
+   * Defines the plaintext as "Hello, World!" with a shift of 3.
+   * Calls `caesar_encrypt` for encryption, obtaining the ciphertext.
+   * Prints the encrypted result.
+   * Calls `caesar_decrypt` for decryption, obtaining the decrypted text.
+   * Prints the decrypted result.
+
+This code achieves encryption and decryption processes for the Caesar cipher by utilizing ASCII codes for character conversion and shifting operations. It's important to note that the Caesar cipher is a relatively simple substitution cipher and is no longer used in modern cryptography to protect sensitive information due to its susceptibility to various attacks.
+
+Continuing, let's now examine a brute-force attack against this cipher.
+
+```
+def caesar_encrypt(plaintext, shift):
+    ciphertext = ""
+    for char in plaintext:
+        if char.isalpha():
+            if char.isupper():
+                ciphertext += chr((ord(char) + shift - 65) % 26 + 65)
+            else:
+                ciphertext += chr((ord(char) + shift - 97) % 26 + 97)
+        else:
+            ciphertext += char
+    return ciphertext
+
+def caesar_brute_force(ciphertext):
+    print("Ciphertext:", ciphertext)
+    print("\nBrute Force Decryption:")
+    for shift in range(1, 26):
+        decrypted_text = caesar_decrypt(ciphertext, shift)
+        print(f"Shift {shift}: {decrypted_text}")
+
+def caesar_decrypt(ciphertext, shift):
+    plaintext = ""
+    for char in ciphertext:
+        if char.isalpha():
+            if char.isupper():
+                plaintext += chr((ord(char) - shift - 65) % 26 + 65)
+            else:
+                plaintext += chr((ord(char) - shift - 97) % 26 + 97)
+        else:
+            plaintext += char
+    return plaintext
+
+# example
+plaintext = "HELLOWORLD"
+shift = 3
+ciphertext = caesar_encrypt(plaintext, shift)
+caesar_brute_force(ciphertext)
+```
+
+\
+This code implements encryption, decryption, and a brute-force attack against the Caesar cipher.
+
+1. `caesar_encrypt` function:
+   * Parameters: `plaintext` is the input string, and `shift` is the offset used during encryption.
+   * Returns: Returns the encrypted ciphertext string.
+   * Process: For each character in the input, it first checks if it's a letter (`char.isalpha()`). If it is a letter, it encrypts it based on whether it's an uppercase or lowercase letter.
+     * For uppercase letters, it calculates the new ASCII value of the character using `ord(char) + shift - 65`, ensures the result is within the range of 26 using modulo operation, and adds 65 to get the new ASCII value of the uppercase letter.
+     * For lowercase letters, it performs a similar calculation using `ord(char) + shift - 97`, ensures the result is within the range of 26, and adds 97 to get the new ASCII value of the lowercase letter.
+     * If it's not a letter, the character is directly added to the ciphertext.
+   * Returns the final encrypted ciphertext.
+2. `caesar_brute_force` function:
+   * Parameters: `ciphertext` is the encrypted ciphertext string.
+   * Process: Uses brute force to decrypt with all possible shift values, calls the `caesar_decrypt` function, and outputs the decryption results for each offset. This function is designed to demonstrate the results of a brute-force attack.
+3. `caesar_decrypt` function:
+   * Parameters: `ciphertext` is the ciphertext string, and `shift` is the offset used during decryption.
+   * Returns: Returns the decrypted plaintext string.
+   * Process: Similar to the encryption process, for each character, it checks if it's a letter. If it is a letter, it decrypts based on whether it's an uppercase or lowercase letter.
+     * For uppercase letters, it calculates the new ASCII value of the character using `ord(char) - shift - 65`, ensures the result is within the range of 26 using modulo operation, and adds 65 to get the new ASCII value of the uppercase letter.
+     * For lowercase letters, it performs a similar calculation using `ord(char) - shift - 97`, ensures the result is within the range of 26, and adds 97 to get the new ASCII value of the lowercase letter.
+     * If it's not a letter, the character is directly added to the plaintext.
+   * Returns the final decrypted plaintext.
+4. Example:
+   * Defines the plaintext as "HELLOWORLD" with a shift of 3.
+   * Uses the `caesar_encrypt` function for encryption, obtaining the ciphertext.
+   * Uses the `caesar_brute_force` function to perform a brute-force attack on the ciphertext, outputting all possible decryption results.
+
+This code is primarily for demonstrating the basic principles of the Caesar cipher and the process of brute-force attacks. In practical applications, the Caesar cipher is insecure, and modern cryptography employs more complex and secure encryption algorithms.
+
+## Monoalphabetic cipher
+
+We now know the shortcomings of the Caesar cipher, so let's learn about the Monoalphabetic Cipher.
+
+The Monoalphabetic Cipher is a basic encryption technique and belongs to the category of substitution ciphers. In a Monoalphabetic Cipher, each plaintext character (typically a letter) is substituted with a fixed ciphertext character. This substitution is one-to-one, meaning each plaintext character corresponds to a unique ciphertext character. Such substitutions are usually based on a key, and the key determines the specific arrangement of the substitution table.
+
+Here are the main features and principles of the Monoalphabetic Cipher:
+
+1. Substitution Table: The substitution table is a mapping of plaintext characters to ciphertext characters. For example, if the table replaces the letter A in plaintext with the letter D in ciphertext, then in the encryption process, all occurrences of A will be replaced with D. The key determines the arrangement of the substitution table.
+2. Key: The key is crucial for the Monoalphabetic Cipher. It determines the ordering of letters in the substitution table. Using different keys can generate different substitution tables, resulting in different substitution rules.
+3. Encryption Process: The encryption process involves replacing each character in the plaintext with the corresponding ciphertext character based on the substitution table. It is a straightforward, one-to-one substitution operation.
+4. Decryption Process: The decryption process is the inverse of encryption, replacing each character in the ciphertext with the corresponding plaintext character based on the substitution table. Decryption requires using the same key to generate the same substitution table.
+5. Security: The security of the Monoalphabetic Cipher is relatively low, especially susceptible to frequency analysis attacks. Since each character is substituted one-to-one, frequency analysis can guess possible substitution rules by analyzing the frequency of characters in the ciphertext.
+
+The reasons for the improved security of the Monoalphabetic Cipher compared to the Caesar cipher are primarily:
+
+1. Larger Key Space: The Monoalphabetic Cipher introduces a larger key space because the arrangement of the substitution table can be arbitrary. The Caesar cipher has only 26 fixed shift values, while the key space for the Monoalphabetic Cipher is 26! (26 factorial), which is a significantly large number. This makes exhaustive attacks practically infeasible.
+2. Irregular Substitution Rules: The Monoalphabetic Cipher can employ irregular substitution rules, not just simple letter shifts. This increases the difficulty for attackers to perform frequency analysis or other statistical analyses. If the substitution rules are not obviously linear or predictable, cracking becomes more challenging.
+
+Let's now explore the implementation of the Monoalphabetic Cipher.
+
+```
+import random
+
+def generate_substitution_key():
+    # Generate a random letter substitution table
+    alphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    shuffled_alphabet = random.sample(alphabet, len(alphabet))
+    substitution_key = dict(zip(alphabet, shuffled_alphabet))
+    return substitution_key
+
+def substitution_encrypt(text, substitution_key):
+    # Encryption
+    encrypted_text = ''.join(substitution_key.get(char, char) for char in text.upper())
+    return encrypted_text
+
+def substitution_decrypt(encrypted_text, substitution_key):
+    # Decryption
+    decryption_key = {v: k for k, v in substitution_key.items()}
+    decrypted_text = ''.join(decryption_key.get(char, char) for char in encrypted_text.upper())
+    return decrypted_text
+
+# Example usage
+plaintext = "Hello, World!"
+substitution_key = generate_substitution_key()
+
+# Encryption
+encrypted_text = substitution_encrypt(plaintext, substitution_key)
+print(f"Encrypted: {encrypted_text}")
+
+# Decryption
+decrypted_text = substitution_decrypt(encrypted_text, substitution_key)
+print(f"Decrypted: {decrypted_text}")
+
+```
+
+This code segment implements encryption and decryption operations for a simple substitution cipher, using a randomly generated substitution key.
+
+1. `generate_substitution_key` function:
+   * This function generates a random letter substitution table (`substitution_key`).
+   * It uses the `random.sample` function to randomly select non-repeating letters from the alphabet, creating a shuffled alphabet.
+   * It pairs the original alphabet with the shuffled alphabet to construct the letter substitution table (`substitution_key`).
+   * Returns the generated letter substitution table.
+2. `substitution_encrypt` function:
+   * Parameters: `text` is the text to be encrypted, and `substitution_key` is the letter substitution table.
+   * Returns: Returns the encrypted text.
+   * Process: It replaces each character in the input text. If a character is not in the substitution table, it remains unchanged. The text is converted to uppercase to ensure case-insensitivity.
+   * Returns the final encrypted text.
+3. `substitution_decrypt` function:
+   * Parameters: `encrypted_text` is the text to be decrypted, and `substitution_key` is the letter substitution table.
+   * Returns: Returns the decrypted text.
+   * Process: Opposite to encryption, it creates a decryption letter substitution table (`decryption_key`) and reversely replaces each character in the encrypted text.
+   * Returns the final decrypted text.
+4. Example usage:
+   * Define plaintext as "Hello, World!".
+   * Call `generate_substitution_key` to generate a random letter substitution table.
+   * Use `substitution_encrypt` for encryption, obtaining the ciphertext.
+   * Print the encrypted result.
+   * Use `substitution_decrypt` for decryption, obtaining the decrypted text.
+   * Print the decrypted result.
+
+
+
+## Reference
+
+1\. [https://blog.4d.com/cryptokey-encrypt-decrypt-sign-and-verify/](https://blog.4d.com/cryptokey-encrypt-decrypt-sign-and-verify/)
+
+2\. [https://www.geeksforgeeks.org/cryptanalysis-and-types-of-attacks/](https://www.geeksforgeeks.org/cryptanalysis-and-types-of-attacks/)
+
+3\. [https://www.ques10.com/p/28098/list-and-explain-various-types-of-attacks-on-enc-1/](https://www.ques10.com/p/28098/list-and-explain-various-types-of-attacks-on-enc-1/)
+
+4\. [https://www.geeksforgeeks.org/substitution-cipher/](https://www.geeksforgeeks.org/substitution-cipher/)
+
+5\. [https://www.geeksforgeeks.org/columnar-transposition-cipher/](https://www.geeksforgeeks.org/columnar-transposition-cipher/)
+
+6\. [https://gkaccess.com/support/information-technology-wiki/caesar-cipher/](https://gkaccess.com/support/information-technology-wiki/caesar-cipher/)
+
+7\. [https://learn.parallax.com/tutorials/robot/cyberbot/cybersecurity-brute-force-attacks-defenses/crack-cipher-brute-force](https://learn.parallax.com/tutorials/robot/cyberbot/cybersecurity-brute-force-attacks-defenses/crack-cipher-brute-force)
