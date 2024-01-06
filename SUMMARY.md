@@ -1,7 +1,12 @@
 # Table of contents
 
-* [Classical Cryptography](README.md)
-* [Mathematical Fundamentals](mathematical-fundamentals.md)
+* [Preface](README.md)
+* [Classical Cryptography Ⅰ](classical-cryptography.md)
+* [Classical Cryptography Ⅱ](classical-cryptography-1.md)
+* [Classical Cryptography Ⅲ](classical-cryptography-2.md)
+* [Mathematical Fundamentals Ⅰ](mathematical-fundamentals.md)
+* [Mathematical Fundamentals Ⅱ](mathematical-fundamentals-1.md)
+* [Mathematical Fundamentals Ⅲ](mathematical-fundamentals-2.md)
 * [Symmetric Cryptosystem](symmetric-cryptosystem.md)
 * [Random Sequence](random-sequence.md)
 * [Asymmetric Cryptosystem](asymmetric-cryptosystem.md)
