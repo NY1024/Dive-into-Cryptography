@@ -7,6 +7,7 @@
 * [Mathematical Fundamentals Ⅰ](mathematical-fundamentals.md)
 * [Mathematical Fundamentals Ⅱ](mathematical-fundamentals-1.md)
 * [Mathematical Fundamentals Ⅲ](mathematical-fundamentals-2.md)
+* [Mathematical Fundamentals Ⅳ](mathematical-fundamentals-3.md)
 * [Symmetric Cryptosystem](symmetric-cryptosystem.md)
 * [Random Sequence](random-sequence.md)
 * [Asymmetric Cryptosystem](asymmetric-cryptosystem.md)
