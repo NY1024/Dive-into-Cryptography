@@ -474,3 +474,17 @@ The term "Killed" typically appears when a program is forcefully terminated by t
    * There might be errors or vulnerabilities in the code causing unexpected behavior, leading to the program's termination.
 
 In our example, this could be due to resource limitations, resulting in the program being killed.
+
+## Reference
+
+1\. 《Advanced Encryption Standard (AES) Algorithm to Encrypt and Decrypt Data》
+
+2\. [https://www.brainkart.com/article/AES-Key-Expansion\_8410/](https://www.brainkart.com/article/AES-Key-Expansion\_8410/)
+
+3\. [https://en.wikipedia.org/wiki/Avalanche\_effect](https://en.wikipedia.org/wiki/Avalanche\_effect)
+
+4\. [https://www.semanticscholar.org/paper/EFFECTIVE-IMPLEMENTATION-AND-AVALANCHE-EFFECT-OF-Kumar-Tiwari/e15e76133e5eba55fbb2c7817ae9859d6491c98c](https://www.semanticscholar.org/paper/EFFECTIVE-IMPLEMENTATION-AND-AVALANCHE-EFFECT-OF-Kumar-Tiwari/e15e76133e5eba55fbb2c7817ae9859d6491c98c)
+
+5\. [https://www.geeksforgeeks.org/double-des-and-triple-des/](https://www.geeksforgeeks.org/double-des-and-triple-des/)
+
+6\. [https://www.tutorialspoint.com/what-is-double-des](https://www.tutorialspoint.com/what-is-double-des)
