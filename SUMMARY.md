@@ -10,6 +10,7 @@
 * [Mathematical Fundamentals Ⅳ](mathematical-fundamentals-3.md)
 * [Symmetric Cryptosystem Ⅰ](symmetric-cryptosystem.md)
 * [Symmetric Cryptosystem Ⅱ](symmetric-cryptosystem-1.md)
+* [Symmetric Cryptosystem Ⅲ](symmetric-cryptosystem-2.md)
 * [Random Sequence](random-sequence.md)
 * [Asymmetric Cryptosystem](asymmetric-cryptosystem.md)
 * [Hash Function](hash-function.md)
