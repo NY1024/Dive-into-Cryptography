@@ -74,15 +74,15 @@ The cipher key (initial key) is used to create the first four words. The key siz
 
 This equation is used to find a key for each round, except for w0. For w0, we must use a specific equation different from the one mentioned above.
 
-<figure><img src=".gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The following diagram illustrates the AES key expansion:
 
-<figure><img src=".gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The pseudocode for the entire process is as follows:
 
-<figure><img src=".gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 AES key expansion algorithm takes a four-word (16-byte) key as input and generates a linear array containing 44 words (176 bytes). This is sufficient to provide a four-word round key for the initial AddRoundKey stage and each round of the cipher, totaling 10 rounds. The pseudocode above describes the key expansion process.
 
