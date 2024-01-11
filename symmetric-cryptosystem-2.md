@@ -155,7 +155,7 @@ Note:
 
 Now, let's learn about the three-key mode of Triple DES (3DES). Its definition is as follows:
 
-<figure><img src=".gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Triple DES (3DES) is a variant of the DES algorithm that utilizes three independent keys for data encryption. This mode is commonly referred to as the three-key mode (Triple-Key Triple-DES), which involves the following steps:
 
@@ -301,7 +301,7 @@ In general, ECB mode might still find utility in specific applications, but in m
 
 The following diagram illustrates the operation of ECB:
 
-<figure><img src=".gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 

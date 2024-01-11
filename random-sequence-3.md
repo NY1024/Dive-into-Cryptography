@@ -322,3 +322,261 @@ onstructing a Legendre sequence, we focus on quadratic residues and non-residues
 The construction of Legendre sequences exhibits good mathematical properties, especially when the choice of modulo p is appropriate. These sequences find applications in cryptography and random number generation, among other fields, but they are not as widely used as LFSRs. In practical applications, analyzing the periodicity and statistical properties of Legendre sequences is crucial.
 
 Now, let's look at the code.
+
+```
+# Function to generate a Legendre sequence
+def legendre_sequence(n, p):
+    # Initialize the sequence with zeros
+    sequence = [0] * n
+    # Set the first element to 1
+    sequence[0] = 1
+
+    # Generate the Legendre sequence
+    for i in range(1, n):
+        x = (i * i) % p
+        # Check if x is a quadratic residue or non-residue
+        if x == 1 or x == p - 1:
+            sequence[i] = 0
+        else:
+            sequence[i] = 1
+
+    return sequence
+
+# Example: Generate 10 elements of the Legendre sequence (modulo prime number 7)
+n = 10
+p = 7
+legendre_seq = legendre_sequence(n, p)
+print("Legendre Sequence:", legendre_seq)
+
+```
+
+1. The function `legendre_sequence` takes two parameters: `n` (length of the sequence) and `p` (the modulo).
+2. It initializes a list called `sequence` with `n` elements, all set to 0, and sets the first element to 1.
+3. It then enters a loop from 1 to `n-1` to generate the Legendre sequence. Inside the loop:
+   * It calculates `x` as the square of `i` modulo `p`.
+   * It checks if `x` is equal to 1 or `p - 1`. If true, it sets the corresponding element in the sequence to 0; otherwise, it sets it to 1.
+4. The function returns the generated Legendre sequence.
+5. An example is provided using `n = 10` and `p = 7` to generate a Legendre sequence. The result is printed.
+
+The Legendre sequence is constructed based on the properties of quadratic residues and non-residues modulo `p`. The output is a binary sequence indicating whether each element is a quadratic residue (0) or a non-residue (1) modulo `p`. The example demonstrates the generation of the Legendre sequence with a specific length and modulo.
+
+## Elliptic Curve Sequence
+
+Elliptic Curve Sequence is a pseudo-random sequence based on elliptic curves, and its construction utilizes the discrete logarithm problem of elliptic curves. Elliptic Curve Sequences are commonly used in cryptography to generate keystreams for encryption algorithms or pseudo-random number generators.
+
+Basic steps for constructing an Elliptic Curve Sequence:
+
+1. Choose an elliptic curve: Select an elliptic curve, usually represented as (y^2 = x^3 + ax + b) over a finite field (\mathbb{F}\_p), where (a) and (b) are constants in the finite field, ensuring that the curve satisfies certain security properties.
+2. Select a base point: Choose a base point (G) on the curve, and its order (the number of times the point must be added to itself to cover the entire curve) should be a large prime number.
+3. Choose a private key: Select a private key (d), typically a random number.
+4. Generate the sequence: By continuously calculating (d \cdot G), where (d) is the private key and (G) is the base point, a sequence can be obtained. Each term in the Elliptic Curve Sequence corresponds to a point on the curve.
+5. Apply an appropriate hash function: To map points on the elliptic curve to a pseudo-random bit sequence, a hash function, such as SHA-256, is commonly used to map the coordinates on the elliptic curve to a binary sequence.
+
+The security of Elliptic Curve Sequences relies on the difficulty of the elliptic curve discrete logarithm problem. This problem involves finding (d) such that (d \cdot G = Q), where (Q) is a known point on the elliptic curve. This problem is hard to solve with classical computational power, making the generation of Elliptic Curve Sequences reasonably secure.
+
+Elliptic Curve Sequences find widespread applications in modern cryptography, especially in Elliptic Curve Cryptography (ECC). These sequences offer high security and efficiency, making them suitable for constructing secure encryption algorithms and key exchange protocols.
+
+```
+from Crypto.PublicKey import ECC
+
+def elliptic_curve_sequence(curve, num_points):
+    # Generate an ECC key pair using the specified elliptic curve
+    private_key = ECC.generate(curve=curve)
+    public_key = private_key.public_key()
+
+    sequence = []  # Initialize an empty list to store the sequence
+    point = public_key.pointQ  # Get the base point from the public key
+
+    # Generate the elliptic curve sequence
+    for _ in range(num_points):
+        sequence.append(point.x)  # Append the x-coordinate of the current point to the sequence
+        point = point + public_key.pointQ  # Update the point by adding the base point
+
+    return sequence
+
+# Example: Generate an Elliptic Curve Sequence
+curve = "P-256"  # Use the P-256 curve
+num_points = 5
+elliptic_curve_seq = elliptic_curve_sequence(curve, num_points)
+print("Elliptic Curve Sequence:", elliptic_curve_seq)
+
+```
+
+1. The `elliptic_curve_sequence` function generates an Elliptic Curve Sequence based on the specified elliptic curve and the number of points to generate.
+2. An ECC key pair is generated using the `ECC.generate` function with the specified elliptic curve.
+3. The public key is extracted from the generated key pair.
+4. A list called `sequence` is initialized to store the x-coordinates of points in the Elliptic Curve Sequence.
+5. The base point (`pointQ`) from the public key is assigned to the variable `point`.
+6. A loop iterates `num_points` times, appending the x-coordinate of the current point to the sequence and updating the point by adding the base point.
+7. The resulting Elliptic Curve Sequence is printed for demonstration purposes using the P-256 curve and generating 5 points.
+
+## Stream cipher
+
+We have previously learned various methods for generating random sequences, and now let's delve into stream ciphers.
+
+There exists a close relationship between random sequences and stream ciphers, especially in their applications within cryptography.
+
+A stream cipher is a type of symmetric encryption algorithm that uses a randomly generated bit stream, known as a key stream, of equal length to the plaintext. Encryption or decryption is achieved by performing a bitwise XOR operation between the key stream and the plaintext.
+
+In stream ciphers, the quality of the key stream is crucial for the security of encryption. Ideally, the key stream should exhibit characteristics of a completely random and unpredictable sequence. This introduces the concept of a random sequence, as it represents a sequence with randomness and unpredictability.
+
+Stream cipher algorithms typically employ Pseudo-Random Number Generators (PRNGs) to generate the key stream. A PRNG is an algorithm capable of producing an approximately random sequence. It takes an initial value (seed) as input and generates a long sequence of pseudo-random bits, which serves as the key stream for the stream cipher.
+
+The security of a stream cipher relies on the randomness of the key stream. If the key stream is predictable or follows a pattern, the encryption becomes vulnerable to attacks. Therefore, one of the design goals of stream ciphers is to use key streams with high randomness, often achieved by employing high-quality PRNGs.
+
+The relationship between random sequences and stream ciphers finds widespread application in modern cryptography. Many stream cipher algorithms utilize specially designed PRNGs to generate high-quality key streams, ensuring the security of encryption.
+
+In summary, the key stream in stream ciphers should exhibit characteristics of high randomness and unpredictability to ensure the security of cryptographic systems.
+
+Below is a schematic representation of how stream ciphers operate:
+
+<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+```
+from Crypto.Random import get_random_bytes
+
+def generate_key_stream(key, size):
+    # Use the key to generate a key stream
+    key_stream = bytearray()
+    while len(key_stream) < size:
+        key_stream.extend(key)
+    return bytes(key_stream[:size])
+
+def encrypt(plaintext, key_stream):
+    # Use bitwise XOR to encrypt the message
+    encrypted_message = bytes(p ^ k for p, k in zip(plaintext, key_stream))
+    return encrypted_message
+
+def decrypt(ciphertext, key_stream):
+    # Use bitwise XOR to decrypt the message
+    decrypted_message = bytes(c ^ k for c, k in zip(ciphertext, key_stream))
+    return decrypted_message
+
+# Generate a random key
+key = get_random_bytes(16)
+
+# Message to be encrypted
+message = b"Hello, Stream Cipher!"
+
+# Generate key stream
+key_stream = generate_key_stream(key, len(message))
+
+# Encrypt the message
+encrypted_message = encrypt(message, key_stream)
+
+# Decrypt the message
+decrypted_message = decrypt(encrypted_message, key_stream)
+
+# Print results
+print("Original Message:", message)
+print("Encrypted Message:", encrypted_message)
+print("Decrypted Message:", decrypted_message.decode('utf-8'))
+
+```
+
+Analysis:
+
+1. **Import Libraries:**
+   * The code imports the `get_random_bytes` function from the `Crypto.Random` module.
+2. **Key Stream Generation:**
+   * The `generate_key_stream` function creates a key stream by repeating the provided key until it reaches the desired size.
+3. **Encryption and Decryption Functions:**
+   * The `encrypt` and `decrypt` functions perform encryption and decryption using bitwise XOR (`^`) on corresponding elements of the plaintext/ciphertext and key stream.
+4. **Key and Message Initialization:**
+   * A random key of 16 bytes (`key`) is generated using `get_random_bytes`.
+   * The sample message (`message`) is defined.
+5. **Key Stream Generation and Usage:**
+   * The key stream (`key_stream`) is generated with the same length as the message using the `generate_key_stream` function.
+6. **Encryption and Decryption:**
+   * The message is encrypted using the key stream, resulting in `encrypted_message`.
+   * The encrypted message is then decrypted using the same key stream, yielding `decrypted_message`.
+7. **Print Results:**
+   * The original message, encrypted message, and decrypted message are printed for verification.
+
+Overall, the code demonstrates a basic stream cipher implementation using bitwise XOR for encryption and decryption. It showcases the generation of a key stream, encryption of a message, and subsequent decryption using the same key stream.
+
+## RC4
+
+A typical representation of a stream cipher algorithm is RC4 (Rivest Cipher 4). Also known as Ron's Code 4 or Rivest Cipher, RC4 is a symmetric key stream cipher algorithm designed by American cryptographer Ron Rivest and published in 1987. RC4 is renowned for its simplicity and efficiency, and it is widely used in practical applications, including as a part of the SSL/TLS protocols.
+
+The main steps of the RC4 algorithm are as follows:
+
+1. **Initialization:** RC4 utilizes a state array called the S-box (Substitution box), which contains all possible values from 0 to 255. Additionally, there is a transformation array K used for generating the key stream. At the beginning of the algorithm, the S-box is initialized as an ordered sequence from 0 to 255, and then it is shuffled based on the key K.
+2. **Key Scheduling:** The initialized S-box undergoes initial confusion with the key, involving a series of swap operations. The purpose of this stage is to complicate the initial state of the S-box using the key, thereby enhancing the strength of the cipher.
+3. **Key Stream Generation:** RC4 utilizes the S-box and the key to generate a pseudo-random key stream. This key stream is employed for both encrypting plaintext and decrypting ciphertext. The process of generating the key stream involves continuous swapping of elements in the S-box, followed by addition or XOR operations, resulting in a key stream.
+4. **Encryption and Decryption:** Using the generated key stream, the plaintext undergoes bitwise XOR operations or addition with the key stream to achieve encryption and decryption. This XOR operation constitutes the core operation of RC4.
+5. **Key Stream Update:** After encrypting or decrypting each byte, elements in the key stream may be updated. This allows the continued use of the key stream for processing the next byte.
+
+The workflow of RC4 is illustrated as follows:
+
+<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+```
+def rc4(key, plaintext):
+    S = list(range(256))  # Initialize S-box with values 0 to 255
+    j = 0  # Initialize j for key-scheduling algorithm
+
+    # Key-scheduling algorithm
+    for i in range(256):
+        j = (j + S[i] + key[i % len(key)]) % 256
+        S[i], S[j] = S[j], S[i]  # Swap values in S-box
+
+    # Pseudo-random generation algorithm
+    i = j = 0
+    ciphertext = bytearray()
+
+    for char in plaintext:
+        i = (i + 1) % 256
+        j = (j + S[i]) % 256
+        S[i], S[j] = S[j], S[i]  # Swap values in S-box
+        keystream_byte = S[(S[i] + S[j]) % 256]  # Calculate keystream byte
+        ciphertext.append(char ^ keystream_byte)  # XOR operation with plaintext
+
+    return bytes(ciphertext)
+
+# Example usage
+key = b"Key"
+plaintext = b"Hello, RC4!"
+
+# Encrypt the plaintext
+cipher = rc4(key, plaintext)
+
+# Decrypt the ciphertext
+decrypted_text = rc4(key, cipher)
+
+# Print results
+print("Original Text:", plaintext)
+print("Encrypted Text:", cipher)
+print("Decrypted Text:", decrypted_text.decode('utf-8'))
+
+```
+
+Analysis:
+
+1. **Key-scheduling Algorithm:**
+   * The function begins by initializing the S-box (`S`) with values from 0 to 255 and setting `j` to 0.
+   * The key-scheduling algorithm shuffles the S-box based on the provided key (`key`).
+2. **Pseudo-random Generation Algorithm:**
+   * The pseudo-random generation algorithm generates a key stream and encrypts the plaintext using the RC4 algorithm.
+   * The S-box values are continuously swapped, and a keystream byte is calculated for each character in the plaintext.
+3. **Example Usage:**
+   * An example key (`b"Key"`) and plaintext (`b"Hello, RC4!"`) are provided.
+   * The `rc4` function is used to encrypt the plaintext (`cipher`).
+4. **Decryption:**
+   * The `rc4` function is again used to decrypt the ciphertext (`decrypted_text`).
+5. **Print Results:**
+   * The original text, encrypted text, and decrypted text are printed for verification.
+
+The RC4 algorithm is a stream cipher that uses a key-scheduling algorithm and a pseudo-random generation algorithm. The XOR operation with the key stream is the core of the encryption and decryption processes. The example usage demonstrates the functionality of the RC4 implementation.
+
+## Reference
+
+1\. [https://www.cse.ust.hk/faculty/cding/JOURNALS/it982.pdf](https://www.cse.ust.hk/faculty/cding/JOURNALS/it982.pdf)
+
+2\. [https://www.researchgate.net/figure/Bit-distribution-of-the-Legendre-sequence-S-23\_tbl2\_332741870](https://www.researchgate.net/figure/Bit-distribution-of-the-Legendre-sequence-S-23\_tbl2\_332741870)
+
+3\. [https://cnj.atu.edu.iq/wp-content/uploads/2019/10/10.pdf](https://cnj.atu.edu.iq/wp-content/uploads/2019/10/10.pdf)
+
+4\. [https://www.okta.com/identity-101/rc4-stream-cipher/](https://www.okta.com/identity-101/rc4-stream-cipher/)
+
+5\. [https://en.wikipedia.org/wiki/RC4](https://en.wikipedia.org/wiki/RC4)
