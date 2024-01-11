@@ -13,6 +13,7 @@
 * [Symmetric Cryptosystem Ⅲ](symmetric-cryptosystem-2.md)
 * [Random Sequence Ⅰ](random-sequence.md)
 * [Random Sequence Ⅱ](random-sequence-1.md)
+* [Random Sequence Ⅲ](random-sequence-2.md)
 * [Asymmetric Cryptosystem](asymmetric-cryptosystem.md)
 * [Hash Function](hash-function.md)
 * [Message Authentication Code](message-authentication-code.md)
