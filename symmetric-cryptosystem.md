@@ -28,7 +28,7 @@ AES is an iterative rather than a Feistel cipher. It is based on two common tech
 
 Let's take a closer look at the encryption process. Here's an example of the encryption process:
 
-<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Encryption plays a crucial role in protecting data from unauthorized access. The AES algorithm employs a specific structure to encrypt data, providing optimal security. To achieve this, it relies on multiple rounds of operations, with each round comprising four sub-processes. Each round involves the following four steps for encrypting a 128-bit block, denoted as A.
 

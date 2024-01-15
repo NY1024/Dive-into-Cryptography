@@ -187,11 +187,11 @@ The Hill cipher is a block cipher algorithm based on linear algebra, capable of 
 
     * The Hill cipher employs a matrix as its key. The size of the key matrix determines the block size. Typically, 2x2 and 3x3 matrices are common. For example, for a 2x2 key matrix:
 
-    <figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
     For a 3x3 key matrix:
 
-<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 * The key matrix must be invertible. In the case of modulo 26, the determinant of the matrix must be coprime.
 
