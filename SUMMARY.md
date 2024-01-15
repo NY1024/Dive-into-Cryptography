@@ -18,6 +18,7 @@
 * [Asymmetric Cryptosystem Ⅰ](asymmetric-cryptosystem.md)
 * [Asymmetric Cryptosystem Ⅱ](asymmetric-cryptosystem-1.md)
 * [Asymmetric Cryptosystem Ⅲ](asymmetric-cryptosystem-2.md)
+* [Asymmetric Cryptosystem Ⅳ](asymmetric-cryptosystem-3.md)
 * [Hash Function](hash-function.md)
 * [Message Authentication Code](message-authentication-code.md)
 * [Digital Signature](digital-signature.md)
