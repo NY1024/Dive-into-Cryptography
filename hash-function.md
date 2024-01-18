@@ -1,2 +1,4 @@
 # Hash Function
 
+## Hash function
+
