@@ -19,7 +19,7 @@ Let's take a look at a typical representative—Playfair Cipher.
 
 The Playfair Cipher is a type of Polygraphic Substitution Cipher that uses a 5x5 matrix (Playfair Square) to encrypt and decrypt information. This cipher technique was independently invented in the late 19th century by Charles Wheatstone and Giovan Battista Bellaso in the United Kingdom.
 
-<figure><img src=".gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 
 
@@ -187,11 +187,11 @@ The Hill cipher is a block cipher algorithm based on linear algebra, capable of 
 
     * The Hill cipher employs a matrix as its key. The size of the key matrix determines the block size. Typically, 2x2 and 3x3 matrices are common. For example, for a 2x2 key matrix:
 
-    <figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
     For a 3x3 key matrix:
 
-<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 * The key matrix must be invertible. In the case of modulo 26, the determinant of the matrix must be coprime.
 
@@ -220,23 +220,23 @@ The matrix used for encryption serves as the cryptographic key and should be ran
 
 Let's assume we need to encrypt the message 'ACT' (n=3). The key is 'GYBNQKURP', which can be represented as an n × n matrix:
 
-<figure><img src=".gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The message 'ACT' can be represented as the following vector:
 
-<figure><img src=".gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The encrypted vector is given as:
 
-<figure><img src=".gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The corresponding ciphertext is 'POH'. To decrypt the message, we convert the ciphertext back into a vector and then simply multiply it by the inverse matrix of the key matrix (IFKVIVVMI corresponds to the letters). The inverse matrix of the matrix used in the previous example is:
 
-<figure><img src=".gitbook/assets/image (6) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (6) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 For the previous ciphertext 'POH':
 
-<figure><img src=".gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (7) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 This will allow us to recover 'ACT'.
 
@@ -327,7 +327,7 @@ Now, let's learn about the Vigenère Cipher.
 
 The Vigenère Cipher is a classic polygraphic substitution cipher proposed by the French cryptographer Blaise de Vigenère in the 16th century. It encrypts plaintext by using a keyword to guide the encryption process, employing different Caesar cipher tables to achieve a polyalphabetic substitution effect.
 
-<figure><img src=".gitbook/assets/image (8) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (8) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The basic principles and steps of the Vigenère Cipher are as follows:
 

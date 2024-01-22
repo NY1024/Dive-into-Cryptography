@@ -4,7 +4,7 @@
 
 A hash function is an algorithm that maps input data of any size to a fixed-size output. Its core characteristic is that the same input produces the same output, and the output is difficult to reverse-engineer to reconstruct the original input. Hash functions find widespread applications in computer science and cryptography, including data integrity verification, password storage, digital signatures, and other areas.
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
 
 Hash functions have many important applications in the fields of computer science and information security, mainly covering aspects such as data integrity verification, cryptography, and secure storage:
 
@@ -127,3 +127,563 @@ The provided Python code demonstrates a simple hash function and an attempt to p
 
 ## &#x20;Weakly collision-free
 
+Now, let's learn about the resistance of hash functions against second preimage attacks.
+
+A second preimage attack refers to the situation where, given the hash value of a specific message, an attacker tries to find a different message that produces the same hash value as the known message. In the design of hash functions, resistance against second preimage attacks is a crucial property. If a hash function is susceptible to second preimage attacks, it means that an attacker can forge different inputs with the same hash value, potentially leading to serious security issues.
+
+Here are some common principles in the design of hash functions that help resist second preimage attacks:
+
+1. **Strength and Irreversibility:** A good hash function should possess both strength and irreversibility, meaning that even if the hash value is known, it should be difficult to find a different input producing the same hash value. This often involves the complexity and mathematical properties of the hash algorithm to ensure that calculating the original message given the known hash value is challenging.
+2. **Collision Resistance:** Collision occurs when two different inputs produce the same hash value. Emphasizing that a hash function should be collision-resistant helps prevent second preimage attacks. For example, if a hash function is weak, an attacker could search for different inputs that match the known hash value.
+3. **Hash Function Length:** The output length of the hash function is typically related to its security. Longer hash outputs generally provide better security by increasing the difficulty of collisions.
+4. **Use Widely Accepted Hash Algorithms:** Avoid using custom or less widely accepted hash algorithms, as they may not have undergone sufficient scrutiny and testing. Common hash algorithms like SHA-256 are widely applied in cryptography.
+5. **Avoid Predictable Hash Results:** The results of a hash function should be random, even with minor changes in the input. This helps ensure that attackers cannot infer the hash result by observing small variations in the input.
+
+In summary, resistance against second preimage attacks is a critical aspect of hash function design. When choosing and using hash functions, these principles should be considered to ensure the security of the system.
+
+```
+import hashlib
+import random
+
+def simple_hash_function(message):
+    # A simplified hash function, not secure in practice
+    return hashlib.sha256(message.encode()).hexdigest()
+
+def find_second_preimage(original_message, hash_function, input_length=10):
+    # Resistance against second preimage attack by enumerating different inputs
+    original_hash = hash_function(original_message)
+
+    for i in range(10**input_length):
+        input_candidate = str(i).zfill(input_length)  # Represent input as a fixed-length string
+        if input_candidate != original_message and hash_function(input_candidate) == original_hash:
+            return input_candidate
+
+    return None
+
+if __name__ == "__main__":
+    # Example hash function and original message
+    original_message = "Hello, World!"
+    
+    # Attacker attempts to find a second preimage
+    second_preimage = find_second_preimage(original_message, simple_hash_function)
+
+    print("Original Message:", original_message)
+    
+    if second_preimage is not None:
+        print("Second Preimage:", second_preimage)
+    else:
+        print("Failed to find a second preimage.")
+
+```
+
+The provided Python code demonstrates a simple hash function and an attempt to perform a second preimage attack on it. Here's an analysis of the code:
+
+1.  **Hash Function (`simple_hash_function`):**
+
+    ```python
+    def simple_hash_function(message):
+        return hashlib.sha256(message.encode()).hexdigest()
+    ```
+
+    * This function uses the SHA-256 hash algorithm from the `hashlib` module to hash the input message.
+    * It converts the input message to bytes using `encode()`.
+    * The result is converted to a hexadecimal representation using `hexdigest()`.
+2.  **Second Preimage Attack Function (`find_second_preimage`):**
+
+    ```python
+    def find_second_preimage(original_message, hash_function, input_length=10):
+        original_hash = hash_function(original_message)
+
+        for i in range(10**input_length):
+            input_candidate = str(i).zfill(input_length)
+            if input_candidate != original_message and hash_function(input_candidate) == original_hash:
+                return input_candidate
+
+        return None
+    ```
+
+    * The function attempts a second preimage attack by enumerating different inputs.
+    * It calculates the hash of the original message (`original_hash`) using the provided hash function.
+    * It iterates through integers from 0 to `10**input_length - 1`.
+    * Each integer is converted to a string and zero-padded to the specified length (`input_length`) using `zfill`.
+    * If the hash of the input candidate matches the original hash and the input candidate is different from the original message, it is considered a second preimage, and the input candidate is returned.
+3.  **Main Section:**
+
+    ```python
+    if __name__ == "__main__":
+        original_message = "Hello, World!"
+        second_preimage = find_second_preimage(original_message, simple_hash_function)
+
+        print("Original Message:", original_message)
+
+        if second_preimage is not None:
+            print("Second Preimage:", second_preimage)
+        else:
+            print("Failed to find a second preimage.")
+    ```
+
+    * The main section sets an original message and attempts to find a second preimage using the `find_second_preimage` function.
+    * The results, including the original message and the result of the second preimage attack (if successful), are printed.
+4. **Analysis:**
+   * The provided hash function (`simple_hash_function`) is a basic example and is not secure for real-world cryptographic purposes.
+   * The `find_second_preimage` function attempts a brute-force second preimage attack by trying all possible inputs within the specified length.
+   * In practice, secure hash functions are designed to resist second preimage attacks, making such brute-force attempts infeasible.
+   * This code serves as an illustrative example and should not be used in any security-critical applications. Real-world hash functions should be chosen based on established cryptographic standards.
+
+## Collision-resistant
+
+Resistance against collision attacks refers to the ability of a hash function to withstand attempts by attackers to find two different inputs that produce the same hash value. Hash functions should possess collision resistance, meaning that even in a large input space, the probability of finding two distinct inputs with the same hash value is extremely low.
+
+Here are some defense measures and practices for hash functions against collision attacks:
+
+1. **Strength and Output Length:**
+   * The output length of a hash function determines its collision resistance. Generally, longer hash values provide higher collision resistance because they offer a larger output space.
+2. **Salt:**
+   * In cryptography, using salt is an effective method. Salt is a random number combined with the input before hashing. Using different salts for the same input generates different hash values, even if the input is the same.
+3. **Choice of Hash Algorithm:**
+   * Use secure and extensively tested hash algorithms such as SHA-256 or SHA-3. These algorithms have been verified in a wide range of cryptographic applications.
+4. **Avoid Custom Hash Functions:**
+   * Professional cryptographers recommend avoiding the design of custom hash functions. Instead, use standard hash functions reviewed and widely accepted by experts.
+5. **Random Oracle Model:**
+   * The Random Oracle model assumes that a hash function is a random black box, and its output is random. This model theoretically provides strong collision resistance.
+6. **Periodicity of Hash Functions:**
+   * A good hash function should have a sufficiently large period within its input space to ensure that output values are evenly distributed throughout the entire output space.
+
+```
+import hashlib
+import random
+
+def simple_hash_function(message):
+    # A simplified hash function, not secure in practice
+    return hashlib.sha256(message.encode()).hexdigest()
+
+def find_collision(hash_function, input_length=10, num_attempts=10000):
+    # Resistance against collision attack by enumerating different inputs
+    hash_to_input = {}
+
+    for _ in range(num_attempts):
+        input_candidate = str(random.randint(0, 10**input_length - 1)).zfill(input_length)
+        current_hash = hash_function(input_candidate)
+
+        if current_hash in hash_to_input:
+            return hash_to_input[current_hash], input_candidate
+        else:
+            hash_to_input[current_hash] = input_candidate
+
+    return None, None
+
+if __name__ == "__main__":
+    # Example hash function
+    hash_function = simple_hash_function
+    
+    # Attacker attempts to find a collision
+    collision_input1, collision_input2 = find_collision(hash_function)
+
+    if collision_input1 is not None and collision_input2 is not None:
+        print("Collision Found:")
+        print("Input 1:", collision_input1)
+        print("Input 2:", collision_input2)
+        print("Hash of Input 1:", hash_function(collision_input1))
+        print("Hash of Input 2:", hash_function(collision_input2))
+    else:
+        print("Failed to find a collision.")
+
+```
+
+The provided Python code demonstrates a simple hash function and an attempt to perform a collision attack on it. Here's an analysis of the code:
+
+1.  **Hash Function (`simple_hash_function`):**
+
+    ```python
+    def simple_hash_function(message):
+        return hashlib.sha256(message.encode()).hexdigest()
+    ```
+
+    * This function uses the SHA-256 hash algorithm from the `hashlib` module to hash the input message.
+    * It converts the input message to bytes using `encode()`.
+    * The result is converted to a hexadecimal representation using `hexdigest()`.
+2.  **Collision Attack Function (`find_collision`):**
+
+    ```python
+    def find_collision(hash_function, input_length=10, num_attempts=10000):
+        # Resistance against collision attack by enumerating different inputs
+        hash_to_input = {}
+
+        for _ in range(num_attempts):
+            input_candidate = str(random.randint(0, 10**input_length - 1)).zfill(input_length)
+            current_hash = hash_function(input_candidate)
+
+            if current_hash in hash_to_input:
+                return hash_to_input[current_hash], input_candidate
+            else:
+                hash_to_input[current_hash] = input_candidate
+
+        return None, None
+    ```
+
+    * The function attempts a collision attack by generating random inputs and checking for collisions in the hash values.
+    * It maintains a dictionary (`hash_to_input`) to store hash values and corresponding inputs encountered during the iterations.
+    * If a collision is found (i.e., a hash value already exists in the dictionary), the function returns the pair of colliding inputs.
+3.  **Main Section:**
+
+    ```python
+    if __name__ == "__main__":
+        # Example hash function
+        hash_function = simple_hash_function
+     
+        # Attacker attempts to find a collision
+        collision_input1, collision_input2 = find_collision(hash_function)
+
+        if collision_input1 is not None and collision_input2 is not None:
+            print("Collision Found:")
+            print("Input 1:", collision_input1)
+            print("Input 2:", collision_input2)
+            print("Hash of Input 1:", hash_function(collision_input1))
+            print("Hash of Input 2:", hash_function(collision_input2))
+        else:
+            print("Failed to find a collision.")
+    ```
+
+    * The main section sets the hash function to the provided `simple_hash_function`.
+    * It attempts to find a collision using the `find_collision` function and prints the results if a collision is found.
+4. **Analysis:**
+   * The code demonstrates a basic collision attack by generating random inputs and checking for collisions in the hash values produced by the `simple_hash_function`.
+   * The number of attempts and the input length are adjustable parameters (`num_attempts` and `input_length`).
+   * In practice, secure hash functions are designed to resist collision attacks, making such brute-force attempts infeasible.
+   * This code serves as an illustrative example and should not be used in any security-critical applications. Real-world hash functions should be chosen based on established cryptographic standards.
+
+## Hash functions utilizing block cipher chaining
+
+Hash functions based on block cipher chaining are a method of constructing hash algorithms that utilize the structure of block ciphers to generate hash values. This approach typically involves iterative processing, where the message is divided into blocks and each block is processed using a block cipher.
+
+Basic Principles:
+
+1. Block Cipher Selection: Choose an appropriate block cipher algorithm, such as AES, DES, etc. A block cipher is an encryption algorithm that maps a fixed-size data block (group) to another fixed-size data block.
+2. Initial Vector (IV): Choose an initial vector (IV). The initial vector is a fixed-size random value used for encrypting the first data block.
+3. Message Division: Divide the message to be hashed into fixed-size data blocks.
+4. Iterative Processing: Iteratively process each data block. Processing each data block involves encrypting it with the previous data block (or initial vector), and then replacing the previous data block with the result.
+5. Final Processing: Perform final processing on the last processed data block, which may include additional encryption or other operations.
+6. Output: The finally processed data block serves as the output for the hash value.
+
+```
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
+from Crypto.Util.Padding import pad, unpad
+
+def cbc_hash(message, key):
+    block_size = 16  # AES block size is 128 bits, i.e., 16 bytes
+    iv = get_random_bytes(block_size)  # Randomly generate an initialization vector
+
+    cipher = AES.new(key, AES.MODE_CBC, iv)
+    
+    # Pad the message to a multiple of the block size
+    padded_message = pad(message, block_size)
+
+    # Divide the message into blocks
+    blocks = [padded_message[i:i+block_size] for i in range(0, len(padded_message), block_size)]
+
+    # Use CBC mode encryption
+    hash_result = iv
+    for block in blocks:
+        # XOR the current block with the previous ciphertext
+        xor_result = bytes([a ^ b for a, b in zip(hash_result, block)])
+        # Encrypt the XOR result to get a new hash value
+        hash_result = cipher.encrypt(xor_result)
+
+    return hash_result
+
+if __name__ == "__main__":
+    key = get_random_bytes(16)  # Randomly generate a 16-byte key
+
+    message = "This is a message to hash using CBC mode."
+    hash_result = cbc_hash(message.encode(), key)
+
+    print("Message:", message)
+    print("CBC Hash:", hash_result.hex())
+
+```
+
+The provided Python code implements a hash function based on the Cipher Block Chaining (CBC) mode using the Advanced Encryption Standard (AES) algorithm. Below is an analysis of the code:
+
+1.  **Import Libraries:**
+
+    ```python
+    from Crypto.Cipher import AES
+    from Crypto.Random import get_random_bytes
+    from Crypto.Util.Padding import pad, unpad
+    ```
+
+    * The code imports necessary modules from the `Crypto` library, including AES for encryption, `get_random_bytes` for generating random bytes, and `pad` and `unpad` for message padding.
+2.  **CBC Hash Function (`cbc_hash`):**
+
+    ```python
+    def cbc_hash(message, key):
+        block_size = 16  # AES block size is 128 bits, i.e., 16 bytes
+        iv = get_random_bytes(block_size)  # Randomly generate an initialization vector
+
+        cipher = AES.new(key, AES.MODE_CBC, iv)
+        
+        # Pad the message to a multiple of the block size
+        padded_message = pad(message, block_size)
+
+        # Divide the message into blocks
+        blocks = [padded_message[i:i+block_size] for i in range(0, len(padded_message), block_size)]
+
+        # Use CBC mode encryption
+        hash_result = iv
+        for block in blocks:
+            # XOR the current block with the previous ciphertext
+            xor_result = bytes([a ^ b for a, b in zip(hash_result, block)])
+            # Encrypt the XOR result to get a new hash value
+            hash_result = cipher.encrypt(xor_result)
+
+        return hash_result
+    ```
+
+    * The function takes a message and a key as input and produces a CBC mode hash using AES encryption.
+    * It generates a random initialization vector (IV) and creates an AES cipher object in CBC mode with the provided key and IV.
+    * The message is padded to a multiple of the block size using PKCS#7 padding.
+    * The padded message is divided into blocks, and CBC mode encryption is performed iteratively by XORing the current block with the previous ciphertext and encrypting the result.
+    * The final encrypted block serves as the hash result.
+3.  **Main Section:**
+
+    ```python
+    if __name__ == "__main__":
+        key = get_random_bytes(16)  # Randomly generate a 16-byte key
+
+        message = "This is a message to hash using CBC mode."
+        hash_result = cbc_hash(message.encode(), key)
+
+        print("Message:", message)
+        print("CBC Hash:", hash_result.hex())
+    ```
+
+    * In the main section, a random 16-byte key is generated, and a message is defined.
+    * The `cbc_hash` function is called with the message and key, and the resulting hash is printed in hexadecimal format.
+4. **Analysis:**
+   * The code implements a CBC mode hash function using AES encryption.
+   * It ensures security by using a random initialization vector (IV) and a randomly generated key.
+   * The CBC mode involves XORing each block with the previous ciphertext, providing a level of security against certain attacks.
+   * This example is for educational purposes and should not be used for actual cryptographic applications without thorough analysis and testing. In real-world scenarios, standardized cryptographic hash functions are recommended.
+
+## Secure Hash Algorithm
+
+The Secure Hash Algorithm (SHA) is a series of hash functions designed by the United States National Security Agency (NSA) and standardized by the National Institute of Standards and Technology (NIST). The SHA algorithm family includes SHA-0, SHA-1, SHA-2, and SHA-3. SHA algorithms find wide applications in the fields of cryptography and information security, used for generating message digests, digital signatures, and other applications.
+
+**SHA-0:** SHA-0 was the first version of the SHA algorithm, designed in 1993. However, it was quickly replaced due to severe vulnerabilities, primarily collision vulnerabilities, allowing the discovery of two different messages producing the same digest.
+
+**SHA-1:** SHA-1, designed in 1995 to replace SHA-0, produces a 160-bit (20-byte) message digest. However, with the development of cryptographic analysis, SHA-1 was found to have collision vulnerabilities and is gradually no longer considered a secure hash algorithm.
+
+**SHA-2:** SHA-2 is an improved version of SHA-1, released by NIST in 2001. The SHA-2 algorithm family includes SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, and SHA-512/256, producing digests of different lengths. SHA-2 adopts a more complex structure and algorithm, providing a higher level of security and is still widely used.
+
+**SHA-3:** SHA-3, the latest version of the SHA algorithm, was released by NIST in 2015. Unlike SHA-2, SHA-3 employs the Keccak algorithm, a hash algorithm based on a "sponge" structure. SHA-3 offers security comparable to SHA-2 but is designed based on different principles. The SHA-3 algorithm family includes SHA3-224, SHA3-256, SHA3-384, SHA3-512, SHA3-512/224, and SHA3-512/256.
+
+**Applications of SHA:**
+
+* Digital Signatures: Used to generate message digests, ensuring the integrity of messages through digest signing.
+* Cryptographic Security Protocols: Employed for key generation, message verification, and more.
+* Certificate Signatures: Utilized for the signatures of certificates.
+
+SHA algorithms undergo extensive evaluation and standardization processes, with NIST being a major standards-setting authority. The design and standardization involve open cryptographic algorithm competitions to ensure the reliability and security of the algorithms. Vulnerabilities in SHA algorithms often lead to the development and release of new algorithm versions.
+
+As technology advances, the demand for more secure hash algorithms continues to grow. While SHA-3 is the latest NIST standard, future advancements may lead to more advanced and secure hash algorithms. New algorithms need thorough research and testing to ensure their security and reliability.
+
+## SHA-1
+
+We will use SHA-1 as an example for learning.
+
+Secure Hash Algorithm 1 (SHA-1), developed by the National Institute of Standards and Technology (NIST) in 1993, is widely employed in secure applications and protocols, including TLS, SSL, PGP, SSH, IPsec, and S/MIME.
+
+The working principle of SHA-1 involves treating a message as a bit string with a length less than 2^64 and generating a 160-bit hash value, known as the message digest. The following message is represented in hexadecimal to reduce length.
+
+There are two methods of encrypting a message using SHA-1. Although one method involves processing sixty-four 32-bit words, making it more complex and time-consuming, the example below illustrates a simpler approach. Upon completion, the algorithm outputs a block consisting of 16 words, each composed of 16 bits, totaling 256 bits.
+
+Assuming we want to encode the message 'abc' using SHA-1, where the binary form of the message 'abc' is:
+
+<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+Expressed in hexadecimal, it is as follows:
+
+<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+1. The first step is to initialize five random strings composed of hexadecimal characters, which will serve as part of the hash function (displayed in hexadecimal):
+
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+2. Next, append a 1 at the end of the message, followed by enough zeros to bring the message length to 448 bits. Then, append the message length represented in 64 bits at the end, creating a message of length 512 bits:
+
+<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+The above figure represents the bit padding of the string "abc," ultimately determined by the length of the string, which is 24 bits.
+
+3. Then, the message is divided into blocks of 512 bits, with each block further segmented into 16 words of 32 bits each, denoted as W0...w15. In our example of "abc," there is only one block, as the message is less than 512 bits in total.
+4. For each data block, 80 iterations (i) are initiated, which is the number of iterations required for SHA-1 hashing (80 being the determined number of iterations for SHA-1). The following steps are performed for each data block Mn during the 80 iterations:
+
+During iterations 16 to 79, i.e., when i is in this range, the following operations are executed:
+
+<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+The truth table for the XOR operation is as follows:
+
+<figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+For example, when i is 16, the selected words are W(13), W(8), W(2), W(0), and the output is a new word, W(16). Therefore, performing XOR operations on them would yield the following result:
+
+<figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+Next is the circular shift operation.
+
+<figure><img src=".gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+
+Represents a circular shift of n positions on word X, where n is an integer between 0 and 32. It is defined as:
+
+<figure><img src=".gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+Whereas, X << n is a left shift operation, achieved by moving X to the left by n positions, discarding the leftmost n bits, and filling the right side with n zeros.
+
+X >> (32 - n) is a right shift operation, achieved by discarding the rightmost n bits of X and filling the left side with n zeros.
+
+<figure><img src=".gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+
+Left shift
+
+<figure><img src=".gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+
+Where W(i) is 10010, it will generate 01001. So, W(16) will end with the following sequence.
+
+<figure><img src=".gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+
+5. Now, store the hash values defined in step 1 in the following variables:
+
+<figure><img src=".gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+
+6. For the 80 iterations, i.e., for i from 0 to 79, calculate:
+
+<figure><img src=".gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+
+Reallocate the following variables:
+
+<figure><img src=".gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+
+Store the hash result of the block into the overall hash value of all blocks, as shown below, and proceed to the next block:
+
+<figure><img src=".gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+
+As the final step, when all blocks have been processed, the message digest is represented as a 160-bit string composed of the logical OR operator (OR) of five hash values:
+
+<figure><img src=".gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+
+Therefore, the hash value of the string 'abc' is similar to a9993e364706816aba3e25717850c26c9cd0d89d. For example, if the string is changed to 'abcd', the hash value will be significantly different, making it challenging for attackers to infer its similarity to the original message. The hash value for 'abcd' is 81fe8bfe87576c3ecb22426f8e57847382917acf.
+
+Note that in SHA-1, a series of logical functions are used to generate a 32-bit output, depending on the value of i and the 32-bit words B, C, and D. The following expression describes the logical function:
+
+<figure><img src=".gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+
+Additionally, a series of constant words are used in the formula as shown below:
+
+<figure><img src=".gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+
+```
+import struct
+
+def sha1(message):
+    # Initialize variables
+    h0 = 0x67452301
+    h1 = 0xEFCDAB89
+    h2 = 0x98BADCFE
+    h3 = 0x10325476
+    h4 = 0xC3D2E1F0
+
+    # Preprocess the message
+    original_length = len(message) * 8
+    message += b'\x80'
+    while (len(message) + 8) % 64 != 0:
+        message += b'\x00'
+    message += struct.pack('>Q', original_length)
+
+    # Process each block of the message
+    for i in range(0, len(message), 64):
+        block = message[i:i+64]
+        w = [0] * 80
+
+        # Divide the block into 16 32-bit words
+        for j in range(16):
+            w[j] = struct.unpack('>I', block[j*4:j*4+4])[0]
+
+        # Extend 16 words to 80 words
+        for j in range(16, 80):
+            w[j] = left_rotate(w[j-3] ^ w[j-8] ^ w[j-14] ^ w[j-16], 1)
+
+        a, b, c, d, e = h0, h1, h2, h3, h4
+
+        # Main loop
+        for j in range(80):
+            if 0 <= j <= 19:
+                f = (b & c) | ((~b) & d)
+                k = 0x5A827999
+            elif 20 <= j <= 39:
+                f = b ^ c ^ d
+                k = 0x6ED9EBA1
+            elif 40 <= j <= 59:
+                f = (b & c) | (b & d) | (c & d)
+                k = 0x8F1BBCDC
+            else:
+                f = b ^ c ^ d
+                k = 0xCA62C1D6
+
+            temp = left_rotate(a, 5) + f + e + k + w[j] & 0xFFFFFFFF
+            e, d, c, b, a = d, c, left_rotate(b, 30), a, temp
+
+        # Update hash values
+        h0 = (h0 + a) & 0xFFFFFFFF
+        h1 = (h1 + b) & 0xFFFFFFFF
+        h2 = (h2 + c) & 0xFFFFFFFF
+        h3 = (h3 + d) & 0xFFFFFFFF
+        h4 = (h4 + e) & 0xFFFFFFFF
+
+    # Return the SHA-1 hash value
+    return '{:08x}{:08x}{:08x}{:08x}{:08x}'.format(h0, h1, h2, h3, h4)
+
+def left_rotate(value, shift):
+    return ((value << shift) | (value >> (32 - shift))) & 0xFFFFFFFF
+
+if __name__ == "__main__":
+    message = "This is a message to hash using SHA-1."
+    sha1_hash_result = sha1(message.encode())
+    print("SHA-1 Hash:", sha1_hash_result)
+
+```
+
+The provided code is an implementation of the SHA-1 hashing algorithm in Python. Here is a breakdown of the code:
+
+1. **Initialization of Variables:** The SHA-1 algorithm initializes five 32-bit variables (`h0`, `h1`, `h2`, `h3`, `h4`) with specific constant values.
+2. **Preprocessing the Message:**
+   * The message is converted to its binary representation.
+   * The message is padded with a single '1' bit, followed by zeros, and the original length of the message (in bits) is appended.
+   * The padding ensures that the length of the message is a multiple of 512 bits (64 bytes).
+3. **Processing Each Block:**
+   * The padded message is processed in 512-bit blocks.
+   * Each 512-bit block is divided into 16 words (32 bits each).
+   * These 16 words are then extended to 80 words using a left-rotation operation.
+4. **Main Loop:**
+   * The algorithm enters a main loop that iterates 80 times.
+   * Based on the iteration index, different logical functions (`f`) and constants (`k`) are selected.
+   * The variables `a`, `b`, `c`, `d`, and `e` are updated based on the SHA-1 algorithm's specifications.
+5. **Updating Hash Values:**
+   * After processing each block, the hash values `h0`, `h1`, `h2`, `h3`, and `h4` are updated.
+6. **Result:**
+   * The final hash value is obtained by concatenating the updated `h0`, `h1`, `h2`, `h3`, and `h4` in hexadecimal format.
+7. **Left Rotate Function:**
+   * The `left_rotate` function performs a left rotation operation on a 32-bit value.
+8. **Example:**
+   * The code includes an example where the message "This is a message to hash using SHA-1." is hashed, and the resulting SHA-1 hash is printed.
+
+It's important to note that SHA-1 is considered insecure for cryptographic purposes due to vulnerabilities, and more secure alternatives like SHA-256 or SHA-3 are recommended for modern applications.
+
+## Reference
+
+1\. [https://cybersecurityglossary.com/hash-function/](https://cybersecurityglossary.com/hash-function/)
+
+2\. [https://en.wikipedia.org/wiki/SHA-1](https://en.wikipedia.org/wiki/SHA-1)
+
+3\. [https://brilliant.org/wiki/secure-hashing-algorithms/](https://brilliant.org/wiki/secure-hashing-algorithms/)

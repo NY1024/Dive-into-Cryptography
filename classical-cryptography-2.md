@@ -4,7 +4,7 @@
 
 Now we are learning Vernam cipher.
 
-<figure><img src=".gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
 
 The Vernam cipher, also known as the One-Time Pad, is a unique encryption method renowned for its theoretical unbreakability. Invented by Gilbert Vernam in 1917, this cryptographic system is utilized to provide the highest level of confidentiality in communication.
 
@@ -19,7 +19,7 @@ Encryption and decryption process:
 
 1. Encryption: For a given position, the encryption operation for plaintext character P and key character K involves performing P XOR K (bitwise exclusive OR) to obtain the ciphertext character C.
 
-<figure><img src=".gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. Decryption: The decryption process is identical to the encryption operation. To recover the plaintext character, perform P XOR K (bitwise exclusive OR) on the ciphertext character C and the corresponding key character K at the same position.
 

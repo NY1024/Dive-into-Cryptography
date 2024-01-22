@@ -24,11 +24,11 @@ Some characteristics of AES include:
 
 AES is an iterative rather than a Feistel cipher. It is based on two common techniques for encrypting and decrypting data, known as the Substitution-Permutation Network (SPN). SPN is a series of mathematical operations performed in block cipher algorithms. AES has the ability to process fixed plaintext block sizes of 128 bits (16 bytes). This 16-byte block is represented as a 4x4 matrix, and AES operates on the byte matrix. Another key feature of AES is the number of rounds, which depends on the key length. The algorithm uses three different key sizes to encrypt and decrypt data: 128, 192, or 256 bits, determining the number of rounds (e.g., 10 rounds for 128-bit key, 12 rounds for 192-bit key, and 14 rounds for 256-bit key). The following diagram illustrates the basic structure of AES.
 
-<figure><img src=".gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
 
 Let's take a closer look at the encryption process. Here's an example of the encryption process:
 
-<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Encryption plays a crucial role in protecting data from unauthorized access. The AES algorithm employs a specific structure to encrypt data, providing optimal security. To achieve this, it relies on multiple rounds of operations, with each round comprising four sub-processes. Each round involves the following four steps for encrypting a 128-bit block, denoted as A.
 

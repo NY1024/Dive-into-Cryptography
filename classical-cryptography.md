@@ -14,7 +14,7 @@ Cryptography plays a crucial role in the field of information security, with app
 
 When studying cryptography, it is essential to grasp fundamental concepts, including plaintext, ciphertext, encryption, and decryption.
 
-<figure><img src=".gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (9) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 \
 Plaintext : Plaintext refers to the original data or text in its raw form, without any encryption or transformation. It is the raw representation of information without any form of protection or concealment.
@@ -34,7 +34,7 @@ In cryptography, there are two main branches: Cryptanalysis and Cryptography.
 
 There is a competitive relationship between these two branches: cryptography strives to design more powerful encryption systems, while cryptanalysis attempts to find and exploit weaknesses in these systems. This competition drives continuous development in the field of cryptography to adapt to increasingly complex information security challenges. In practice, a successful cryptographic system needs to undergo extensive cryptanalysis testing to verify its security.
 
-<figure><img src=".gitbook/assets/image (11) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (11) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 \
 Cryptography is a branch of cryptology that focuses on the design and development of encryption algorithms and systems to safeguard information security. The goal of cryptography is to ensure confidentiality, integrity, and availability during the processes of information transmission and storage.
@@ -73,7 +73,7 @@ The development of cryptanalysis is an important aspect of cryptographic progres
 
 The table below lists types of attacks on encrypted information:
 
-<figure><img src=".gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 * Ciphertext-Only Attack: In a ciphertext-only attack, the attacker only has access to encrypted ciphertext and cannot obtain corresponding plaintext or other information. This is a more challenging attack model as the attacker needs to deduce information about the key or plaintext through the analysis of ciphertext.
 * Known-Plaintext Attack: In this type of attack, the attacker can acquire some known plaintext and the corresponding ciphertext. By analyzing these known plaintext-ciphertext pairs, the attacker attempts to deduce information about the encryption algorithm or key, making it easier to decrypt other messages.
@@ -89,11 +89,11 @@ The two most commonly used techniques in classical ciphers are substitution and 
 
 **Substitution :** Substitution refers to the process of replacing elements in the plaintext (usually letters) with another set of elements. This substitution can be one-to-one, many-to-one, or one-to-many. Substitution ciphers are among the earliest ciphers, where each letter or group of letters is mapped to another letter or group of letters. The Caesar cipher is a simple example, where letters are replaced according to a fixed offset.
 
-<figure><img src=".gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (14) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Transposition:** Transposition refers to the rearrangement of elements in the plaintext rather than replacing them. In transposition ciphers, the ciphertext is typically created by rearranging or swapping the letters in the plaintext. The rail fence cipher is a simple transposition cipher where letters are arranged on a rail or fence according to a specific rule, and then read off either row-wise or column-wise to generate the ciphertex.
 
-<figure><img src=".gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (15) (1).png" alt=""><figcaption></figcaption></figure>
 
 These two techniques are often combined to form more complex cryptographic systems. For instance, some modern cryptographic algorithms use the structure of a Substitution-Permutation Network (SPN), where substitution and permutation operations alternate to enhance the security of the cryptographic system. This combination leverages the confusion from substitution and the diffusion from permutation, making it more challenging for attackers to comprehend and reverse-engineer the cryptographic algorithm.
 
@@ -103,7 +103,7 @@ Let's begin by learning about the Caesar Cipher.
 
 The Caesar Cipher is a simple substitution cipher, also known as a shift cipher. It is one of the earliest ciphers in classical cryptography and is named after the ancient Roman military leader Julius Caesar. It is said that Caesar used this encryption technique in military communications. The basic idea of the Caesar Cipher is to encrypt text by replacing letters with a fixed offset.
 
-<figure><img src=".gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (16) (1).png" alt=""><figcaption></figcaption></figure>
 
 The specific steps are as follows:
 
@@ -132,7 +132,7 @@ The time complexity of an exhaustive search attack is O(25) since there are 25 p
 
 One method to counteract exhaustive search attacks is to use more complex cryptographic algorithms with larger key spaces, making it impractical to attempt all possible keys. In modern cryptography, strong symmetric encryption algorithms and hash functions typically have sufficiently large key spaces, rendering exhaustive search attacks very difficult.
 
-<figure><img src=".gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
 
 
 
