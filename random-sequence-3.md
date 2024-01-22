@@ -430,7 +430,7 @@ In summary, the key stream in stream ciphers should exhibit characteristics of h
 
 Below is a schematic representation of how stream ciphers operate:
 
-<figure><img src=".gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 from Crypto.Random import get_random_bytes
@@ -509,7 +509,7 @@ The main steps of the RC4 algorithm are as follows:
 
 The workflow of RC4 is illustrated as follows:
 
-<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 def rc4(key, plaintext):

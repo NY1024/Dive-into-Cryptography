@@ -8,7 +8,7 @@ If a third party eavesdrops on this exchange, they would only know the public co
 
 The entire process is illustrated in the diagram below.
 
-<figure><img src=".gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Now let's take a look at the specific steps of the protocol:
 
@@ -20,7 +20,7 @@ Now let's take a look at the specific steps of the protocol:
 6. Key Calculation: Each communicating party uses the received public key from the other party and their own private key to calculate the shared key. Alice calculates K = B^a mod p, and Bob calculates K = A^b mod p.
 7. Key Determination: Since K is the same on both ends, Alice and Bob now have a shared key that can be used for symmetric key encryption in communication.
 
-<figure><img src=".gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Example illustration:
 

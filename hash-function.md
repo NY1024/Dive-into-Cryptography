@@ -1,4 +1,4 @@
-# Hash Function
+# Hash Function Ⅰ
 
 ## Hash function
 
@@ -500,19 +500,19 @@ There are two methods of encrypting a message using SHA-1. Although one method i
 
 Assuming we want to encode the message 'abc' using SHA-1, where the binary form of the message 'abc' is:
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
 Expressed in hexadecimal, it is as follows:
 
-<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 1. The first step is to initialize five random strings composed of hexadecimal characters, which will serve as part of the hash function (displayed in hexadecimal):
 
-<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. Next, append a 1 at the end of the message, followed by enough zeros to bring the message length to 448 bits. Then, append the message length represented in 64 bits at the end, creating a message of length 512 bits:
 
-<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 The above figure represents the bit padding of the string "abc," ultimately determined by the length of the string, which is 24 bits.
 
@@ -521,19 +521,19 @@ The above figure represents the bit padding of the string "abc," ultimately dete
 
 During iterations 16 to 79, i.e., when i is in this range, the following operations are executed:
 
-<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 The truth table for the XOR operation is as follows:
 
-<figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 For example, when i is 16, the selected words are W(13), W(8), W(2), W(0), and the output is a new word, W(16). Therefore, performing XOR operations on them would yield the following result:
 
-<figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 Next is the circular shift operation.
 
-<figure><img src=".gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 Represents a circular shift of n positions on word X, where n is an integer between 0 and 32. It is defined as:
 

@@ -70,19 +70,19 @@ The AES algorithm relies on key expansion for encrypting and decrypting data. Th
 
 The cipher key (initial key) is used to create the first four words. The key size is 16 bytes (k0 to k15), represented in an array as shown below. The first four bytes (k0 to k3) are denoted as w0, the next four bytes (k4 to k7) in the first column are denoted as w1, and so forth. Specific equations can be used to easily calculate and find the key for each round, as shown below:
 
-<figure><img src=".gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 This equation is used to find a key for each round, except for w0. For w0, we must use a specific equation different from the one mentioned above.
 
-<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The following diagram illustrates the AES key expansion:
 
-<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The pseudocode for the entire process is as follows:
 
-<figure><img src=".gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 AES key expansion algorithm takes a four-word (16-byte) key as input and generates a linear array containing 44 words (176 bytes). This is sufficient to provide a four-word round key for the initial AddRoundKey stage and each round of the cipher, totaling 10 rounds. The pseudocode above describes the key expansion process.
 
@@ -94,11 +94,11 @@ The key is copied into the first four words of the expanded key. The remaining e
 
     The round constant is a word, where the rightmost three bytes are always 0. Therefore, the effect of XORing a word with Rcon is only performed on the leftmost byte of the word. The round constant is different for each round and is defined as Rcon\[j] = (RC\[j], 0, 0, 0), where RC\[1] = 1, RC\[j] = 2 \* RC\[j - 1], and multiplication is defined in the finite field GF(2^8). In hexadecimal, the values of RC\[j] are as follows:
 
-<figure><img src=".gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (4) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 For example, suppose the round key for the 8th round is: EA D2 73 21 B5 8D BA D2 31 2B F5 60 7F 8D 29 2F Then, the computation for the first 4 bytes (first column) of the round key for the 9th round is as follows:
 
-<figure><img src=".gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (5) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The developers behind Rijndael aimed to make the key expansion algorithm resistant to known cryptanalysis attacks. Introducing a round constant dependent on the round number eliminates symmetry or similarity between the ways round keys are generated in different rounds. Specific criteria included in the design are:
 
@@ -188,7 +188,7 @@ Now let's learn about the Avalanche Effect.
 
 In cryptography, the Avalanche Effect refers to the property where a tiny change in input data should result in a drastic change in the output. This is a crucial characteristic, particularly in symmetric cryptography, and is highly significant in cryptographic hash functions and symmetric encryption algorithms.
 
-<figure><img src=".gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (7) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 In symmetric encryption algorithms, the Avalanche Effect signifies that even a slight change in the plaintext results in a significant change in the ciphertext. This is a key property for the security of symmetric cryptographic algorithms.
 
