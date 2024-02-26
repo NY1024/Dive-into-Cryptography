@@ -608,7 +608,7 @@ The Discrete Logarithm is a concept in number theory that involves logarithmic o
 
 . Here,
 
-<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 represents the remainder obtained when g^x is divided by p. The discrete logarithm is commonly denoted by the following symbols:
 

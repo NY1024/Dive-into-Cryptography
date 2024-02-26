@@ -178,7 +178,7 @@ This algorithm consists of four main parts:
 
 1. **Padding Bits:** When receiving an input string, it must ensure that its size is a multiple of 512 minus 64 bits. Regarding padding bits, it is necessary to first add a (1) and then add zeros to fill the additional characters.
 
-<figure><img src=".gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. **Padding Length:** In order to make the final string length a multiple of 512, additional characters need to be added. For this purpose, take the initial input's length and represent it in 64 bits. Combine these two parts, and the final string is ready for hashing.
 

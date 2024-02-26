@@ -504,7 +504,7 @@ Assuming we want to encode the message 'abc' using SHA-1, where the binary form 
 
 Expressed in hexadecimal, it is as follows:
 
-<figure><img src=".gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 1. The first step is to initialize five random strings composed of hexadecimal characters, which will serve as part of the hash function (displayed in hexadecimal):
 

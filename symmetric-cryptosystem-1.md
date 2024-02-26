@@ -74,7 +74,7 @@ The cipher key (initial key) is used to create the first four words. The key siz
 
 This equation is used to find a key for each round, except for w0. For w0, we must use a specific equation different from the one mentioned above.
 
-<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The following diagram illustrates the AES key expansion:
 
