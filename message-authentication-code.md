@@ -51,7 +51,7 @@ h(k, m) — or considered another way as hash(key, message)
 
 Essentially, the secret key is combined with the message, hashed, and transformed into a fixed-length string of hexadecimal characters to obfuscate the message's size.
 
-<figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 The diagram above illustrates the creation process of a Message Authentication Code (MAC).
 

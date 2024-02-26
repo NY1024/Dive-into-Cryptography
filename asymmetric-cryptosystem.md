@@ -604,7 +604,7 @@ Completion and translation into English:
 
 The Discrete Logarithm is a concept in number theory that involves logarithmic operations but is performed in a discrete environment. Specifically, given a base g, a modulus p, and an integer y, the discrete logarithm problem is to find an integer x such that
 
-<figure><img src=".gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 . Here,
 
@@ -612,7 +612,7 @@ The Discrete Logarithm is a concept in number theory that involves logarithmic o
 
 represents the remainder obtained when g^x is divided by p. The discrete logarithm is commonly denoted by the following symbols:
 
-<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Here, x is the discrete logarithm, g is the base, y is the true number, and p is the modulus. This implies
 

@@ -150,7 +150,7 @@ This code demonstrates the process of blind signing a message using an RSA key p
 
 Now we're learning about group signatures.
 
-![](.gitbook/assets/image.png)\
+![](<.gitbook/assets/image (1).png>)\
 
 
 Group Signature is a special type of digital signature scheme, first proposed by David Chaum and Eugeen van Heyst in 1991. This signature scheme possesses unique properties that allow members to anonymously sign on behalf of the entire group while still enabling the group manager to trace them when necessary.
@@ -298,3 +298,205 @@ Here's an analysis of the provided Python code:
 
 Overall, this code demonstrates a basic implementation of a group signature system using RSA-PSS with SHA-256 hashing for signing and verification. It illustrates the initialization, signing, and verification processes within such a system.
 
+## Ring Signatures
+
+Now we're learning about ring signatures.
+
+Ring Signature is a cryptographic technique first proposed by Ron Rivest and others in 2001. In a ring signature scheme, a signer can use the public keys of other members in the ring, along with their own private key, to sign a message. Verification of the signature can confirm its validity, but cannot determine which specific member in the ring generated the signature. This provides a certain degree of anonymity for the signer.
+
+<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+Characteristics:
+
+1. Anonymity: Ring signature scheme provides anonymity for the signer. Members in the ring can collectively produce a signature, while verifiers can only confirm the validity of the signature without identifying the specific signer.
+2. Irrevocable Anonymity: Unlike some other anonymity schemes, the anonymity provided by ring signatures is irrevocable. Even after signing, there is no way to determine the specific signer through any means.
+
+Applications:
+
+1. Anonymous Whistleblowing: Ring signatures can be used to anonymously provide information to the public or authorities without exposing individual identities. For example, within a government, members can collectively sign to anonymously disclose certain sensitive information.
+2. Anonymous Voting: In digital voting systems, voters can use ring signatures to cast their votes, protecting their voting privacy while ensuring the validity of the votes.
+3. Anonymous Authentication: Ring signatures can be used to achieve anonymous identity authentication, where an entity can prove its affiliation with a group without disclosing its specific identity.
+4. Privacy-Preserving Digital Currency: Ring signatures have been widely used in some privacy-preserving digital currency systems, such as Monero. Users can conduct transactions without revealing their identities.
+
+Overall, ring signatures provide a means to balance anonymity and trustworthiness, suitable for a range of scenarios where individual privacy needs protection while ensuring trustworthiness.
+
+Let's take a look at a ring signature scheme without linkability.
+
+A ring signature scheme without linkability is a special type of ring signature system where different ring signatures generated cannot be directly linked to the same signer. This means that observing two different ring signatures cannot determine if they share the same subset of members.
+
+First, it's necessary to understand the basic concepts of a ring signature scheme:
+
+Ring Signature Members: In a ring signature system, there is a set of members, each with a private key and a corresponding public key. Members can collectively generate a ring signature, but verifiers cannot identify which specific member in the ring generated the signature.
+
+Ring Signature Generation: During ring signature generation, each member generates their own partial signature. The final ring signature is a combination of all members' partial signatures, without revealing their individual contributions.
+
+Verifiers validate the validity of a ring signature by checking if an equation holds true. This equation utilizes bilinear mapping, ensuring the anonymity of the ring signature.
+
+In a ring signature scheme without linkability, the generation and verification of ring signatures adhere to the following characteristics:
+
+1. Unlinkability:
+   * There is no direct link established between two different ring signatures. In other words, verifiers cannot determine if two ring signatures share the same subset of members by observing them.
+2. Anonymity:
+   * The ring signature scheme provides anonymity for the signer. Verifiers can only confirm the validity of the signature but cannot identify the specific signer.
+
+Applications: A ring signature scheme without linkability is suitable for scenarios where signer anonymity needs protection, but signatures should not be traceable to the same entity. For example:
+
+* Anonymous Whistleblowing: Allowing individuals to anonymously provide information to the public or authorities without revealing their identities.
+* Anonymous Authentication: It can be used to achieve anonymous identity authentication, where an entity can prove its affiliation with a group without disclosing its specific identity.
+* Privacy-Preserving Digital Currency: In some privacy-preserving digital currency systems, ring signatures without linkability can ensure transaction privacy.
+
+Overall, a ring signature scheme without linkability provides a way to balance privacy protection and trustworthiness in specific scenarios.
+
+Let's learn the basic steps.
+
+A ring signature scheme without linkability is a special ring signature scheme designed to prevent different ring signatures from being directly linked to the same signer.
+
+Ring Signature Generation Algorithm (ring-sign):
+
+1. Compute Message Hash:
+   * First, compute the hash value of the message m, typically denoted as H(m).
+2. Choose Random Numbers:
+   * For each member k in the ring, choose a random number ai ∈ Zq, where i ∈ {1, ..., n}, and compute a = a1 + a2 + ... + an.
+3. Compute Partial Values of the Ring Signature:
+   * For each member i, compute the partial signature σi = a \* Pi, where Pi is the public key point of member i.
+4. Compute the Ring Signature Value:
+   * Compute the ring signature value σ = Σ(aj \* Y \* xj) for j ∈ {1, ..., n}, where Y is the generator element of group G1, and xj is the private key of member j.
+5. Output:
+   * Output the ring signature value σ as the signature for the message m.
+
+Ring Signature Verification Algorithm (ring-verify):
+
+1. Compute Message Hash:
+   * Compute the hash value of the message m, denoted as H(m).
+2. Verify Equation:
+   * For each member i in the ring, verify if the following equation holds true: e(H, P) = Πe(σi, Yi), where e is the bilinear map from group G1 to G2, Pi is the public key of member i, and Yi is the public key point of member i.
+3. Accept/Reject:
+   * If the equation holds true, accept the signature as valid; otherwise, reject the signature.
+
+
+
+Characteristics of Non-Linkability: In a ring signature scheme without linkability, the ring signature generation process utilizes member private keys and an overall random number a, but does not use previous ring signature values. This results in each ring signature being independent of one another, making it impossible to determine if two ring signatures share the same subset of members by observing them.
+
+Notes:
+
+* A ring signature scheme without linkability typically ensures the independence of ring signatures by not introducing the previous ring signature value as input.
+* This characteristic ensures that the signer's identity is anonymous and untraceable across different ring signatures.
+* Bilinear mapping is used during signature generation and verification processes to ensure the correctness of the verification equation.
+
+Overall, a ring signature scheme without linkability provides a means to balance anonymity and trustworthiness, suitable for scenarios where individual privacy needs protection without the requirement of linkability.
+
+```
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import serialization, hashes
+from cryptography.hazmat.primitives.asymmetric import ec
+
+class RingSignatureSystem:
+    def __init__(self, num_members):
+        self.num_members = num_members
+        self.private_keys = {}
+        self.public_keys = []
+
+    def initialize_system(self):
+        for _ in range(self.num_members):
+            private_key = ec.generate_private_key(
+                ec.SECP256R1(),  # You can choose an appropriate elliptic curve
+                default_backend()
+            )
+            public_key = private_key.public_key()
+
+            private_key_bytes = private_key.private_bytes(
+                encoding=serialization.Encoding.PEM,
+                format=serialization.PrivateFormat.PKCS8,
+                encryption_algorithm=serialization.NoEncryption()
+            )
+
+            self.private_keys[public_key] = private_key
+            self.public_keys.append(public_key)
+
+    def ring_sign(self, message, member_index):
+        private_key = self.private_keys[self.public_keys[member_index]]
+
+        # Simplified signing process, actual process involves more complex cryptographic operations
+        signature = private_key.sign(
+            message.encode(),
+            ec.ECDSA(hashes.SHA256())
+        )
+
+        return signature
+
+    def ring_verify(self, signature, message):
+        for public_key in self.public_keys:
+            try:
+                public_key.verify(
+                    signature,
+                    message.encode(),
+                    ec.ECDSA(hashes.SHA256())
+                )
+                return True
+            except:
+                continue
+        return False
+
+def main():
+    num_members = 5
+    ring_system = RingSignatureSystem(num_members)
+    ring_system.initialize_system()
+
+    message = "Hello, World!"
+
+    # Each member signs the message
+    for i in range(num_members):
+        signature = ring_system.ring_sign(message, i)
+        print(f"Signature from member {i}: {signature.hex()}")
+
+    # Verify the signatures
+    for i in range(num_members):
+        signature = ring_system.ring_sign(message, i)
+        verification_result = ring_system.ring_verify(signature, message)
+        print(f"Signature from member {i} is valid: {verification_result}")
+
+if __name__ == "__main__":
+    main()
+
+```
+
+
+
+The provided Python code implements a basic ring signature system using elliptic curve cryptography (ECC). Let's break down the code:
+
+1. **Imports**:
+   * The code imports necessary modules from the `cryptography.hazmat` package, including `default_backend`, `serialization`, `hashes`, and `ec` (elliptic curve).
+2. **Class `RingSignatureSystem`**:
+   * This class represents a ring signature system.
+   * It has attributes to store the number of members, private keys, and public keys.
+   * The `initialize_system` method initializes the system by generating private-public key pairs for each member and storing them.
+   * The `ring_sign` method takes a message and a member index as input, retrieves the corresponding private key, and signs the message using ECDSA (Elliptic Curve Digital Signature Algorithm) with SHA-256 hashing. (Note: The actual signing process involves more complex cryptographic operations.)
+   * The `ring_verify` method verifies the signature against the message for each public key in the ring.
+3. **Function `main`**:
+   * This function serves as the main entry point of the script.
+   * It initializes a ring signature system with a specified number of members and then initializes the system.
+   * It defines a message to be signed.
+   * It iterates over each member, signs the message, and prints out the signature for each member.
+   * It then verifies each signature against the original message and prints whether each signature is valid.
+4. **Execution**:
+   * The `main` function is executed if the script is run as the main program.
+
+Overall, this code demonstrates a basic implementation of a ring signature system using ECC. It illustrates the initialization, signing, and verification processes within such a system.
+
+
+
+## Reference
+
+1\. [https://en.wikipedia.org/wiki/Blind\_signature](https://en.wikipedia.org/wiki/Blind\_signature)
+
+2\. [https://www.educative.io/answers/what-is-a-blind-signature](https://www.educative.io/answers/what-is-a-blind-signature)
+
+3\. [https://en.wikipedia.org/wiki/Ring\_signature](https://en.wikipedia.org/wiki/Ring\_signature)
+
+4\. [https://www.researchgate.net/figure/Group-signature-modes\_fig1\_8645068](https://www.researchgate.net/figure/Group-signature-modes\_fig1\_8645068)
+
+5\. [https://www.mdpi.com/2073-8994/12/12/2009](https://www.mdpi.com/2073-8994/12/12/2009)
+
+6\. [https://devpost.com/software/ring-signatures-based-anonymous-voting](https://devpost.com/software/ring-signatures-based-anonymous-voting)
+
+7\. [https://medium.com/ppio/ring-signatures-privacy-protection-so-you-can-hide-in-a-crowd-40180a732bce](https://medium.com/ppio/ring-signatures-privacy-protection-so-you-can-hide-in-a-crowd-40180a732bce)

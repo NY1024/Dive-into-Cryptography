@@ -508,7 +508,7 @@ Expressed in hexadecimal, it is as follows:
 
 1. The first step is to initialize five random strings composed of hexadecimal characters, which will serve as part of the hash function (displayed in hexadecimal):
 
-<figure><img src=".gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. Next, append a 1 at the end of the message, followed by enough zeros to bring the message length to 448 bits. Then, append the message length represented in 64 bits at the end, creating a message of length 512 bits:
 

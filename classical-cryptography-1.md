@@ -191,7 +191,7 @@ The Hill cipher is a block cipher algorithm based on linear algebra, capable of 
 
     For a 3x3 key matrix:
 
-<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 * The key matrix must be invertible. In the case of modulo 26, the determinant of the matrix must be coprime.
 

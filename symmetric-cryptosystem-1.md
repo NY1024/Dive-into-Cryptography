@@ -78,7 +78,7 @@ This equation is used to find a key for each round, except for w0. For w0, we mu
 
 The following diagram illustrates the AES key expansion:
 
-<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The pseudocode for the entire process is as follows:
 
