@@ -51,7 +51,7 @@ h(k, m) — or considered another way as hash(key, message)
 
 Essentially, the secret key is combined with the message, hashed, and transformed into a fixed-length string of hexadecimal characters to obfuscate the message's size.
 
-<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 The diagram above illustrates the creation process of a Message Authentication Code (MAC).
 
@@ -98,7 +98,7 @@ If the generated digest matches the provided one, it informs the recipient that 
 1. Is genuine (i.e., sent by a legitimate sender).
 2. Has not been tampered with in any way (i.e., the integrity of the message is assured).
 
-<figure><img src=".gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The diagram above illustrates the basic process of computing a Message Authentication Code (MAC) to ensure value matching and data integrity.
 

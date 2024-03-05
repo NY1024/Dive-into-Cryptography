@@ -150,7 +150,7 @@ This code demonstrates the process of blind signing a message using an RSA key p
 
 Now we're learning about group signatures.
 
-![](<.gitbook/assets/image (1).png>)\
+![](<.gitbook/assets/image (1) (1).png>)\
 
 
 Group Signature is a special type of digital signature scheme, first proposed by David Chaum and Eugeen van Heyst in 1991. This signature scheme possesses unique properties that allow members to anonymously sign on behalf of the entire group while still enabling the group manager to trace them when necessary.
@@ -304,7 +304,7 @@ Now we're learning about ring signatures.
 
 Ring Signature is a cryptographic technique first proposed by Ron Rivest and others in 2001. In a ring signature scheme, a signer can use the public keys of other members in the ring, along with their own private key, to sign a message. Verification of the signature can confirm its validity, but cannot determine which specific member in the ring generated the signature. This provides a certain degree of anonymity for the signer.
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
 Characteristics:
 

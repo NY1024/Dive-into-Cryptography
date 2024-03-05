@@ -509,7 +509,7 @@ The main steps of the RC4 algorithm are as follows:
 
 The workflow of RC4 is illustrated as follows:
 
-<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 def rc4(key, plaintext):

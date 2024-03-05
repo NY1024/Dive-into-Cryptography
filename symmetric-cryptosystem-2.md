@@ -47,7 +47,7 @@ Overall, while Triple DES addresses some issues of DES in its design, more advan
 
 The workflow of 3DES in two-key mode can be represented as follows:
 
-<figure><img src=".gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 
@@ -155,7 +155,7 @@ Note:
 
 Now, let's learn about the three-key mode of Triple DES (3DES). Its definition is as follows:
 
-<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Triple DES (3DES) is a variant of the DES algorithm that utilizes three independent keys for data encryption. This mode is commonly referred to as the three-key mode (Triple-Key Triple-DES), which involves the following steps:
 
@@ -301,7 +301,7 @@ In general, ECB mode might still find utility in specific applications, but in m
 
 The following diagram illustrates the operation of ECB:
 
-<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 
@@ -397,7 +397,7 @@ Characteristics and Considerations:
 
 In summary, CBC mode is a relatively secure mode, but attention should be paid to the reasonable selection of the IV and ensuring the implementation of other security measures. Below is the workflow of CBC mode.
 
-<figure><img src=".gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 from Crypto.Cipher import AES

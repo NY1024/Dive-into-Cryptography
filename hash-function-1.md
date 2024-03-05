@@ -135,7 +135,7 @@ In summary, the code demonstrates how to use the `hashlib` library to compute ha
 
 ## Message Digest
 
-<figure><img src=".gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 MD（Message Digest）series is a family of hash functions designed by Ronald Rivest, including MD2, MD4, and MD5. These algorithms are one-way hash functions used to generate fixed-length hash values for messages. Here are the main members of the MD series:
 
@@ -178,11 +178,11 @@ This algorithm consists of four main parts:
 
 1. **Padding Bits:** When receiving an input string, it must ensure that its size is a multiple of 512 minus 64 bits. Regarding padding bits, it is necessary to first add a (1) and then add zeros to fill the additional characters.
 
-<figure><img src=".gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. **Padding Length:** In order to make the final string length a multiple of 512, additional characters need to be added. For this purpose, take the initial input's length and represent it in 64 bits. Combine these two parts, and the final string is ready for hashing.
 
-<figure><img src=".gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 3. **Initialize MD Buffers:** The entire string is converted into multiple blocks, each consisting of 512 bits. It is also necessary to initialize four distinct buffers, namely A, B, C, and D. Each of these buffers is 32 bits and is initialized as follows:
    * A = 01234567
@@ -195,7 +195,7 @@ This algorithm consists of four main parts:
 
     Each sub-block is represented as M\[0] -> M\[15].
 
-<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 According to the above diagram, the values for a single buffer A are processed. The correct sequence is as follows:
 
